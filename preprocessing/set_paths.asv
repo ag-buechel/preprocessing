@@ -1,0 +1,17 @@
+function [path] = set_paths
+
+% maybe add some other hostnames here? but I'll do everything on the server
+% anyhow (?)
+
+path.basedir = '/projects/crunchie/habermann/data/scanner';
+
+path.BIDSdir    = fullfile(path.BIDSdir , 'rawdata'); % that should be the folder with the zipped not-to-touch data sets
+path.preprocdir = fullfile(path.BIDSdir , 'derivatives', 'spm_preproc');
+path.firstleveldir  = fullfile(path.BIDSdir, 'derivatives', 'spm_firstlevel');
+path.secondleveldir = fullfile(path.BIDSdir, 'derivatives', 'spm_secondlevel');
+
+
+
+
+
+end

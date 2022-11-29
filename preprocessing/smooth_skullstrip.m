@@ -1,7 +1,7 @@
-function smooth_skullstrip(all_sub_ids, skern)
-% smooth the skullstripped mean EPI for all subjects
+function smooth_skullstrip(all_sub_ids, modality, skern)
+% smooth the skullstripped mean EPI or anatomical image for all subjects
 % FWHM of smoothig kernel in mm (skern input)
-
+% For what do we need this?
 
 % add paths
 addpath(fullfile('..','functions'));
@@ -15,10 +15,21 @@ run_parallel = 1;
 matlabbatch = {};
 
 for sub = 1:n_subs
-    
+
     sub_id          = all_sub_ids(sub);
-    direc           = fullfile(path, sprintf('sub-%02d',sub_id), 'func');
-    skullstrip_file = spm_select('FPList', direc, '^skull-strip.*\.nii$');
+
+    if strcmp(modality, 'anat')
+        direc       = fullfile(path, sprintf('sub-%02d',sub_id), 'anat');
+        skullstrip_file = spm_select('FPList', direc, '^skull-strip.*\.nii$');
+
+    elseif strcmp(modality, 'func')
+        direc     = fullfile(path, sprintf('sub-%02d',sub_id), 'func');
+        skullstrip_file = spm_select('FPList', direc, '^skull-strip.*\.nii$');
+        
+    end
+
+
+
 
     matlabbatch{sub}.spm.spatial.smooth.data   = {skullstrip_file}; % check if in cellstr
     matlabbatch{sub}.spm.spatial.smooth.fwhm   = repmat(skern, 1,3);

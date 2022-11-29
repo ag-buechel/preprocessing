@@ -9,7 +9,7 @@ addpath(fullfile('..','functions'));
 base_dir    = get_base_dir;
 BIDS_dir    = base_dir.BIDSdir;
 preproc_dir = base_dir.preprocdir;
-modalities  = {'func','fmap'};
+modalities  = {'func','fmap', 'anat'};
 
 for s = 1:length(subs)
     sub           = subs(s);
@@ -24,10 +24,12 @@ for s = 1:length(subs)
 
         if ~exist(target_folder)
             mkdir(target_folder);
+            files_to_move = cellstr(spm_select('FPList',source_folder,'.*\.nii.gz'));
+            gunzip(files_to_move, target_folder);
+        else
+            fprintf('%s folder already created\n', modality);
         end
 
-        files_to_move = cellstr(spm_select('FPList',source_folder,'.*\.nii.gz'));
-        gunzip(files_to_move, target_folder);
     end
    
 end

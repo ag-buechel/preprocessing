@@ -1,4 +1,4 @@
-function compute_flowfields(all_sub_ids)
+function compute_flowfields(all_sub_ids, modality)
 
 % Input: Segmented images!
 % Output: (Warp-)/Flowfields for later normalization to mni space
@@ -7,14 +7,14 @@ function compute_flowfields(all_sub_ids)
 % Compute flowfields for normalization from native space of the images to
 % MNI space. 
 % Normalize all epis to MNI space using dartel-based flowfields based on
-% segmentation of mean epis.
+% segmentation of mean epis / or T1s.
 
 % add paths
 addpath(fullfile('..','functions'));
 
 % indicate template to normalize to
 path           = get_base_dir;
-template_path  = path.templates;
+template_path  = path.templates; % TAKE THE NEW TEMPLATE FROM CAT TOOLBOX! SEE LIEVENS MAIL
 path           = path.preprocdir;
 n_subs         = length(all_sub_ids);
 run_parallel   = 1;
@@ -56,8 +56,14 @@ matlabbatch = {};
 for sub = 1:n_subs
 
     sub_id    = all_sub_ids(sub);
-    direc     = fullfile(path, sprintf('sub-%02d',sub_id), 'func');
-    
+
+    if strcmp(modality, 'anat')
+        direc     = fullfile(path, sprintf('sub-%02d',sub_id), 'anat');
+
+    elseif strcmp(modality, 'func')
+        direc     = fullfile(path, sprintf('sub-%02d',sub_id), 'func');
+    end
+
     rc1_file  = spm_select('FPList', direc, '^rc1.*\.nii$');
     rc2_file  = spm_select('FPList', direc, '^rc2.*\.nii$');
 

@@ -1,10 +1,11 @@
-function segmentation(all_sub_ids)
+function segmentation(all_sub_ids, modality)
 
 % SPM segmentation on:
-%                     1 - the mean EPIs (one mean EPI/sub)
-%                     2 - the anatomical images 
+%                     1 - the mean EPIs (one mean EPI/sub)(if modality "func")
+%                     2 - the anatomical images (if modality "anat")
+
 % With the segmented images the flow/warpfields are created in the next
-% step. they are needed for normalization to MNI space using the dartel
+% step. they are needed for normalization to MNI space using the DARTEL
 % toolbox.
 
 % add paths
@@ -20,7 +21,8 @@ run_parallel = 1;
 
 
 % As I don't provide tissue probability maps right now, I will use the
-% default TPM file that Lukas provided in his defaults
+% default TPM file that Lukas provided in his defaults and Christian uses
+% the same map
 tpm_file     = fullfile(path_code, 'defaults/enhanced_TPM.nii');
 
 % template for the segmentation matlabbatch
@@ -72,8 +74,19 @@ matlabbatch = {};
 
 for sub = 1:n_subs
     sub_id               = all_sub_ids(sub);
-    direc                = fullfile(path, sprintf('sub-%02d',sub_id), 'func');
-    file                 = spm_select('FPList', direc, '^meanusub.*\.nii$');
+
+    if strcmp(modality, 'func')
+        direc                = fullfile(path, sprintf('sub-%02d',sub_id), 'func');
+        file                 = spm_select('FPList', direc, '^meanusub.*\.nii$');
+
+    elseif strcmp(modality, 'anat')
+        direc                = fullfile(path, sprintf('sub-%02d',sub_id), 'anat');
+        file                 = spm_select('FPList', direc, '^sPRISMA.*\.nii$');
+
+    else
+        error('No correct modality provided for segmentation. Options: "func", "anat"\n');
+        
+    end
 
     matlabbatch{sub}     = template;
     matlabbatch{sub}.spm.spatial.preproc.channel.vols = cellstr(file);
