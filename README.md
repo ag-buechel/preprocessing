@@ -10,7 +10,7 @@ The file "full_preproc" provides the structure for the different preprocessing s
 
 01. dicom import (surely needs to be adjusted for your purposes)
 02. nifti conversion from 3D to 4D
-03. make event files as close to BIDS format as posible (also will require adjustment from your part)
+03. make event files as close to BIDS format as possible (also will require adjustment from your part)
 04. move and unzip the 4D niftis from raw folder into derivatives folder in which we want to work
 05. compute fieldmaps
 06. realign and unwarp
