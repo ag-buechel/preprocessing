@@ -132,9 +132,11 @@ for sub = 1:n_subs
         try
             % anat data change the order for future subs to avoid repetition
             % change name before zipping
-            fname = dir(fullfile(sub_folder,'anat/*.nii'));
-            fname = fullfile(fname.folder, fname.name);
-            gzip(fname);
+            fname     = dir(fullfile(sub_folder,'anat/*.nii'));
+            fname     = fullfile(fname.folder, fname.name);
+            new_fname = fullfile(sub_folder, 'anat', sprintf('sub-%02d_T1w.nii',sub_id));
+            movefile(fullfile(sub_folder, 'anat', fname), new_fname);
+            gzip(new_fname);
             delete(fname);
     
             % gradient field map data
