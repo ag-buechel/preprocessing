@@ -38,4 +38,14 @@ containing the Prisma IDs and the participant number of your subject.
 3. TIMINGS for slice timing correction
 -------------------------------------------------------------------------
 
-still missing: JSON files for BIDS, backward deformation (CBs script)
+UPDATES: 
+-------------------------------------------------------------------------
+script "make_json_files.m" shows a way to manually write json files to be 
+compatible with BIDS format. I did this manually by importing example dicoms
+of one participant, but to be honest is really inconvenient. Better directly 
+use some import script if you want to save time. But if you want to get to know
+the data structure a little bit, this is not the worst excerise.
+
+Marie, 09.12.2022
+
+still missing: backward deformation (CBs script)
