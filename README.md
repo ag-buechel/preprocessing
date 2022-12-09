@@ -48,10 +48,6 @@ the data structure a little bit, this is not the worst excerise.
 
 Marie, 09.12.2022
 
-TO DO: 
--------------------------------------------------------------------------
-- correct naming convention of T1w (anatomical images) in all scripts
-(or make this an option in a "master script" like get_base_dir
 
 -------------------------------------------------------------------------
 still missing: backward deformation (CBs script)
