@@ -81,7 +81,7 @@ for sub = 1:n_subs
 
     elseif strcmp(modality, 'anat')
         direc                = fullfile(path, sprintf('sub-%02d',sub_id), 'anat');
-        file                 = spm_select('FPList', direc, '^sPRISMA.*\.nii$');
+        file                 = spm_select('FPList', direc, '.*_T1w.nii$');
 
     else
         error('No correct modality provided for segmentation. Options: "func", "anat"\n');

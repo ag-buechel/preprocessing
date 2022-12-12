@@ -24,7 +24,7 @@ for sub = 1:n_subs
 
     if strcmp(modality, 'anat')
         mod_dir     = fullfile(path, sprintf('sub-%02d',sub_id), 'anat');
-        mean_file   = spm_select('FPList', mod_dir, '^sPRISMA.*\.nii$'); 
+        mean_file   = spm_select('FPList', mod_dir, '.*_T1w.nii$'); 
         output_name = 'skull-strip-T1.nii';
 
     elseif strcmp(modality, 'func')

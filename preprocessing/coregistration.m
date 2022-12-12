@@ -39,7 +39,7 @@ for sub = 1:n_subs
     anat_dir  = fullfile(path.preprocdir, sprintf('sub-%02d',sub_id), 'anat');
 
     mean_epi_file  = spm_select('FPList', func_dir, '^meanusub.*\.nii$');
-    anat_file      = spm_select('FPList', anat_dir, '^sPRISMA.*\.nii$');
+    anat_file      = spm_select('FPList', anat_dir, '.*_T1w.nii$');
     % change the T1 name and make this coherent with import !! so that
     % people only need to name this once at the beginning
     
